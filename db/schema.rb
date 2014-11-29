@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141129144927) do
+ActiveRecord::Schema.define(version: 20141129145059) do
 
   create_table "accounts", force: true do |t|
     t.integer  "service_id"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20141129144927) do
   create_table "services", force: true do |t|
     t.string   "name"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "site_moderators", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "site_id"
+    t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
