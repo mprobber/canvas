@@ -1,6 +1,10 @@
+require 'digest/sha1'
+
 class User < ActiveRecord::Base
+  attr_accessor :password
   has_many :accounts
   has_many :user_tokens
+  before_save :prepare_password
   has_many :services, through: :accounts
   has_many :comments, through: :user_tokens
   has_many :comment_flags, through: :comments
@@ -25,5 +29,17 @@ class User < ActiveRecord::Base
     else
       (1.0 / 2.0) * (1.0 / (self.comment_flags.distinct.count(:comment_id) + 1.0))
     end
+  end
+
+  def prepare_password
+    self.password_digest = Digest::SHA1.hexdigest(self.password)
+  end
+
+  def self.authenticate(service_id, service_user_id, pass)
+    encrypted_password= Digest::SHA1.hexdigest(pass)
+    puts "service_id #{service_id}, service_user #{service_user_id}"
+    acct = Account.where(service_id: service_id).find_by_service_user_identifier(service_user_id)
+    user = acct.user
+    return user if (not user.nil?) and user.password_digest == encrypted_password
   end
 end

@@ -22,8 +22,11 @@ class UserController < ApplicationController
         account.service_user_identifier = params[:service_user_id]
 
         #TODO if the UserToken is already associated with a user - do we join it to that user? doing that for now
-        old_user_token.user = User.new if old_user_token.user.nil?
-        old_user_token.user.save
+        if old_user_token.user.nil?
+          old_user_token.user = User.new
+          old_user_token.user.display_name = params[:display_name]
+          old_user_token.save
+        end
         account.user = old_user_token.user
         account.save
         render json: {"user_token" => old_user_token.token}, status: 200
@@ -35,6 +38,11 @@ class UserController < ApplicationController
     else
       render json: {"error"=> "incorrect tokens"}, status: 400
     end
+  end
+
+  def index
+    @registered_users = User.all
+    @anon_users = UserToken.where(user_id: nil)
   end
   
 end
