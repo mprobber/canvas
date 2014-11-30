@@ -4,9 +4,9 @@ class UserController < ApplicationController
   def create_token
     t = UserToken.new
     if t.save
-      render json: {"user_token" => t.token}
+      render json: {"user_token" => t.token}, callback: params['callback']
     else
-      render json: {"error"=> "could not generate user_token"}, status: 500
+      render json: {"error"=> "could not generate user_token"}, status: 500, callback: params['callback']
     end
   end
 
