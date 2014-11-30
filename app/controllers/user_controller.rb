@@ -40,6 +40,17 @@ class UserController < ApplicationController
     end
   end
 
+  def ban_user
+    token = UserToken.find_by_token(params[:user_token])
+    token.banned = true
+    if UserToken.user
+      UserToken.banned = true
+      UserToken.user.user_tokens.each do |ut|
+        ut.banned = true
+      end
+    end
+  end
+
   def index
     @registered_users = User.all
     @anon_users = UserToken.where(user_id: nil)

@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   scope :needs_attention, -> {joins(:flags).distinct}
   scope :moderators, -> {joins(:site_moderators).distinct}
+  scope :banned, -> {where(banned: true) }
 
   def get_cred
     total_pts = 0
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
     if (total_pts > 0)
       (positive_pts / total_pts) * (1.0 / (self.comment_flags.distinct.count(:comment_id) + 1.0))
     else
-      (1.0 / 2.0) * (1.0 / (self.comment_flags.distinct.count(:comment_id) + 1.0))
+      (1.0 / (self.flags.distinct.count(:comment_id) + 1.0))
     end
   end
 

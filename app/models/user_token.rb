@@ -6,6 +6,8 @@ class UserToken < ActiveRecord::Base
   has_many :comment_flags, through: :comments
   has_many :votes
 
+  scope :banned, -> {where(banned: true) }
+
   def user_cred
     if self.user
       self.user.get_cred

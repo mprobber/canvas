@@ -21,29 +21,38 @@
     </div>
        <hr>
     <div class="search-results"><br>
+      <% @registered_users.each do |user| %>
       <div class="row ">
         <div class="large-2 columns">
           <a href="#"> <span> </span><img src="img/troll1.jpg" class=" thumbnail"></a>
         </div>
         <div class="large-10 columns">
           <div class="row">
-            <div class=" large-9 columns">
-              <h5>Mr Benjamin</h5>
-              <p><a href="#"> benjy_@XXXXXXX.XXX</a> | ID: 4772
+            <div class=" large-6 columns">
+              <h5><%= user.display_name%></h5>
+              <% user.accounts.each do |account| %>
+                <p><%= "#{account.service_user_identifier} | #{account.service.name}" %></p>
+              <%end%>
             </div>
             <div class=" large-3 columns">
-              <a href="#"  class="button  expand medium"><span>Score: 0.1</span> </a>
+                Tokens<br />
+              <% user.user_tokens.each do |token| %>
+                <%= token.token[0..5] %><br />
+              <%end%>
+            </div>
+            <div class=" large-3 columns">
+              <a href="#"  class="button  expand medium"><span>Score: <%= user.get_cred %></span> </a>
             </div>
             <div class="row">
 	      
               <div class=" large-12 columns">
                 <ul class="button-group">
-                  <li><a href="#" class="small alert button">Banned</a></li>
-		  <li><a href="#" class="small button">Always moderate</a></li>
-		  <li><a href="#" class="small success button">Increase score</a></li>
-		  <li><a href="#" class="small secondary button">More info</a></li>
-		  <li><a href="#" class="small secondary button">Add note</a></li>
-		</ul>
+                <li><a href="#" class="small alert button"><%= user.banned ? "Un-Ban" : "Ban" %></a></li>
+                <li><a href="#" class="small button">Always moderate</a></li>
+                <li><a href="#" class="small success button">Increase score</a></li>
+                <li><a href="#" class="small secondary button">More info</a></li>
+                <li><a href="#" class="small secondary button">Add note</a></li>
+            </ul>
 
                 
               </div>
@@ -52,93 +61,8 @@
         </div>
         <hr>
       </div>
-      
-        <div class="search-results"><br>
-      <div class="row ">
-        <div class="large-2 columns">
-          <a href="#"> <span> </span><img src="img/dick1.jpg" class=" thumbnail"></a>
-        </div>
-      <div class="large-10 columns">
-          <div class="row">
-            <div class=" large-9 columns">
-              <h5>Richard C</h5>
-              <p><a href="#"> cheneysbXX@XXXXXXX.XXX</a> | ID: 4773
-            </div>
-            <div class=" large-3 columns">
-              <a href="#"  class="button  expand medium"><span>Score: 0.2</span> </a>
-            </div>
-            <div class="row">
-	      
-              <div class=" large-12 columns">
-                
-                  <ul class="button-group">
-                   <li><a href="#" class="small alert button">Banned</a></li>
-		  <li><a href="#" class="small button">Always moderate</a></li>
-		  <li><a href="#" class="small success button">Increase score</a></li>
-		  <li><a href="#" class="small secondary button">More info</a></li>
-		  <li><a href="#" class="small secondary button">Add note</a></li>
-		 </ul>
-		  
+      <% end %>
 
-                
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
-        <hr>
-      </div>
-      <div class="row ">
-        <div class="large-2 columns">
-          <a href="#"> <span> </span><img src="img/troll2.jpg" class=" thumbnail"></a>
-        </div>
-      <div class="large-10 columns">
-          <div class="row">
-            <div class=" large-9 columns">
-              <h5>Javier Monson</h5>
-              <p><a href="#"> DelmarioXX@XXXXX.XXX</a> | ID: 4774
-            </div>
-            <div class=" large-3 columns">
-              <a href="#"  class="button  expand medium"><span>Score: 0.1</span> </a>
-            </div>
-            <div class="row">
-	      
-              <div class=" large-12 columns">
-                 <ul class="button-group">
-                   <li><a href="#" class="small alert button">Banned</a></li>
-		  <li><a href="#" class="small button">Always moderate</a></li>
-		  <li><a href="#" class="small success button">Increase score</a></li>
-		  <li><a href="#" class="small secondary button">More info</a></li>
-		  <li><a href="#" class="small secondary button">Add note</a></li>
-		 </ul>
-
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-      </div>
-      <div class="row ">
-        
-          
-        
-        <div class="large-10 columns">
-          <div class="row">
-            
-            
-            <div class="row">
-              <div class=" large-12 columns">
-                <ul class="large-block-grid-2">
-                  
-                  
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-      </div>
     </div>
     <a href="#" class="button right"> show more results &raquo;</a>
   </div>
