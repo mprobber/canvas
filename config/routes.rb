@@ -34,6 +34,7 @@ Canvas::Application.routes.draw do
   #   resources :products
   #
   resources :sessions
+  resources :sites
 
   # Example resource route with options:
   #   resources :products do
