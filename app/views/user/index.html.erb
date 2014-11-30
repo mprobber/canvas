@@ -43,7 +43,7 @@
 	      
               <div class=" large-12 columns">
                 <ul class="button-group">
-                <li><a href="#" class="small alert button"><%= user.banned ? "Un-Ban" : "Ban" %></a></li>
+                <li><a href="<%= user.banned ?  "/user/#{user.user_tokens.first.token}/unban" : "/user/#{user.user_tokens.first.token}/ban"%>" class="small alert button"><%= user.banned ? "Un-Ban" : "Ban" %></a></li>
                 <li><a href="#" class="small button">Always moderate</a></li>
                 <li><a href="#" class="small success button">Increase score</a></li>
                 <li><a href="#" class="small secondary button">More info</a></li>
@@ -98,7 +98,7 @@
 	      
               <div class=" large-12 columns">
                 <ul class="button-group">
-                <li><a href="#" class="small alert button"><%= ut.banned ? "Un-Ban" : "Ban" %></a></li>
+                <li><a href="<%= ut.banned ? "/user/#{ut.token}/unban":"/user/#{ut.token}/ban" %>" class="small alert button"><%= ut.banned ? "Un-Ban" : "Ban" %></a></li>
                 <li><a href="#" class="small button">Always moderate</a></li>
                 <li><a href="#" class="small success button">Increase score</a></li>
                 <li><a href="#" class="small secondary button">More info</a></li>

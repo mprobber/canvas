@@ -41,6 +41,6 @@ class Comment < ActiveRecord::Base
   def generate_cred
     #TODO make flags to spec
     puts self
-    return {"user_cred_score" => self.user_token.user_cred, "upvotes" => self.get_upvotes, "downvotes" => self.get_downvotes, "flags" => self.get_flags}
+    return {"user_cred_score" => self.user_token.user_cred, "upvotes" => self.get_upvotes, "downvotes" => self.get_downvotes, "flags" => self.get_flags, "user_banned" => self.user_token.banned}
   end
 end

@@ -10,8 +10,8 @@ Canvas::Application.routes.draw do
 
   get 'user/token' => 'user#create_token'
   get 'users'     => 'user#index'
-#   get 'user/:id/ban' => 'user#ban'
-#   get 'user/:id/unban' => 'user#ban'
+  get 'user/:user_token/ban' => 'user#ban'
+  get 'user/:user_token/unban' => 'user#unban'
 
   get 'login'     => 'sessions#new'
 
