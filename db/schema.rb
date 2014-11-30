@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141130080513) do
+ActiveRecord::Schema.define(version: 20141130081017) do
 
   create_table "accounts", force: true do |t|
     t.integer  "service_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20141130080513) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_token_id"
   end
 
   create_table "comments", force: true do |t|
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 20141130080513) do
     t.integer  "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_token_id"
   end
 
   create_table "flags", force: true do |t|
@@ -107,6 +109,7 @@ ActiveRecord::Schema.define(version: 20141130080513) do
     t.integer  "points"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_token_id"
   end
 
 end
