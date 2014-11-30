@@ -52,8 +52,28 @@ class UserController < ApplicationController
   end
 
   def index
-    @registered_users = User.all
-    @anon_users = UserToken.where(user_id: nil)
+    @all_registered = User.all
+    @all_anon = UserToken.where(user_id: nil)
+    case params[:filter]
+    when "registered_only"
+      @registered_users = User.all
+      @anon_users = UserToken.none
+    when "anon_only"
+      @registered_users = User.none
+      @anon_users = UserToken.where(user_id: nil)
+    when "moderators"
+      @registered_users = User.moderators
+      @anon_users = UserToken.none
+    when "need_moderation"
+      @registered_users = User.needs_attention
+      @anon_users = UserToken.where(user_id:nil).needs_attention
+    when "banned"
+      @registered_users = User.banned
+      @anon_users = UserToken.where(user_id:nil).banned
+    else
+      @registered_users = User.all
+      @anon_users = UserToken.where(user_id: nil)
+    end
   end
   
 end

@@ -4,9 +4,12 @@ class UserToken < ActiveRecord::Base
   belongs_to :user
   has_many :comments
   has_many :comment_flags, through: :comments
+  has_many :flags, through: :comment_flags
   has_many :votes
 
   scope :banned, -> {where(banned: true) }
+  scope :needs_attention, -> {joins(:flags).distinct}
+  scope :none, where(:id => nil).where("id IS NOT ?", nil)
 
   def user_cred
     if self.user

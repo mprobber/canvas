@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   scope :needs_attention, -> {joins(:flags).distinct}
   scope :moderators, -> {joins(:site_moderators).distinct}
   scope :banned, -> {where(banned: true) }
+  scope :none, where(:id => nil).where("id IS NOT ?", nil)
 
   def get_cred
     total_pts = 0

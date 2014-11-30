@@ -7,6 +7,8 @@ class Comment < ActiveRecord::Base
   belongs_to :site
   has_many :votes
 
+  scope :flagged, -> {joins(:flags).distinct}
+
   validates_presence_of :user_token
 
   def get_upvotes

@@ -1,30 +1,26 @@
 <div class="large-9 push-3 columns">
       
       <h3>Network commenters</h3>
-      <a href="#" class="medium secondary button">All (<%= @registered_users.size + @anon_users.size %>)</a><a href="#" class="medium secondary button">Moderators (<%= User.moderators.size%>)</a><a href="#" class="medium secondary button">Need Moderation (<%=User.needs_attention.size%>)</a><a href="#" class="medium secondary button">Banned (<%=@registered_users.banned.size + @anon_users.banned.size %>)</a>
+      <a href="?filter=none" class="small secondary button">All (<%= @all_registered.size + @all_anon.size %>)</a>
+      <a href="?filter=registered_only" class="small secondary button">Registered Users (<%= @all_registered.size%>)</a>
+      <a href="?filter=anon_only" class="small secondary button">Anon Users (<%= @all_anon.size %>)</a>
+      <a href="?filter=moderators" class="small secondary button">Moderators (<%= @all_registered.moderators.size%>)</a>
+      <a href="?filter=need_moderation" class="small secondary button">Need Moderation (<%=@all_registered.needs_attention.size%>)</a>
+      <a href="?filter=banned" class="small secondary button">Banned (<%=@all_registered.banned.size + @all_anon.banned.size %>)</a>
+<% if @registered_users.size > 0 %>
  <div class="row results">
   <div class="large-12 columns ">
     <div class="row">
       <div class="large-9 columns">
-        <p> Search Results for Banned Users</p>
-      </div>
-      <div class=" large-3 columns ">
-        <select name="sortOptions">
-          <option value="sortby">Sort By</option>
-          <option value="cats">My site</option>
-          <option value="title">All sites</option>
-          <option value="author">Alphabetical</option>
-          <option value="mrecats">Date (most recent)</option>
-        </select>
-	
+        <p>Registered Users</p>
       </div>
     </div>
-       <hr>
+     <hr>
     <div class="search-results"><br>
       <% @registered_users.each do |user| %>
       <div class="row ">
         <div class="large-2 columns">
-          <a href="#"> <span> </span><img src="img/troll1.jpg" class=" thumbnail"></a>
+          <%= image_tag "grey-silhouette-of-man.svg", class: "thumbnail" %>
         </div>
         <div class="large-10 columns">
           <div class="row">
@@ -63,8 +59,66 @@
       </div>
       <% end %>
 
+
+
+
     </div>
-    <a href="#" class="button right"> show more results &raquo;</a>
   </div>
-</div>             
+</div>  
+<%end%>
+<% if @anon_users.size > 0 %>
+  <div class="row results">
+  <div class="large-12 columns ">
+    <div class="row">
+      <div class="large-9 columns">
+        <p>Anon Users</p>
+      </div>
+    </div>
+     <hr>
+    <div class="search-results"><br>
+      <% @anon_users.each do |ut| %>
+      <div class="row ">
+        <div class="large-2 columns">
+          <%= image_tag "grey-silhouette-of-man.svg", class: "thumbnail" %>
+        </div>
+        <div class="large-10 columns">
+          <div class="row">
+            <div class=" large-6 columns">
+              <h5><%= ut.token[0..5]%></h5>
+              <%= ut.token %>
+            </div>
+            <div class=" large-3 columns">
+                <%= "#{ut.comments.size} comments" %><br />
+                <%= "#{ut.comments.flagged.size} flagged" %><br />
+            </div>
+            <div class=" large-3 columns">
+              <a href="#"  class="button  expand medium"><span>Score: <%= ut.get_cred %></span> </a>
+            </div>
+            <div class="row">
+	      
+              <div class=" large-12 columns">
+                <ul class="button-group">
+                <li><a href="#" class="small alert button"><%= ut.banned ? "Un-Ban" : "Ban" %></a></li>
+                <li><a href="#" class="small button">Always moderate</a></li>
+                <li><a href="#" class="small success button">Increase score</a></li>
+                <li><a href="#" class="small secondary button">More info</a></li>
+                <li><a href="#" class="small secondary button">Add note</a></li>
+            </ul>
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <% end %>
+
+
+
+
+    </div>
+  </div>
+</div>     
+<% end %>        
     </div>
