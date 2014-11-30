@@ -1,14 +1,39 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Canvas</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+      
+ 
+    <br/>
+      </ul>
+       
+  
+  
+  <div class="row">
+    
+    <%= yield %>
+    <div class="large-3 pull-9 columns">
+        <big>Safety in Numbers - Women in Games</big>
+	      <br/><br/>
+        <ul class="stack button-group">
+        <br/>
+        <li><big><a href="discuss.html" class="button">Discussion</a></big></li>
+        <li><big><a href="#" class="button disabled">Commenters</a></big></li>
+        <li><big><a href="blacklist.html" class="button">Blacklist</a></big></li>
+        <li><big><a href="settings.html" class="button">Settings</a></big></li>
+        <li><big><a href="#" class="button">Log out</a></big></li>
+  
+        <p></p>
+       </div>
+    
+  </div>
 </body>
 </html>

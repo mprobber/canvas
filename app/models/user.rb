@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   has_many :site_moderators
   has_many :sites, through: :site_moderators
 
+  scope :needs_attention, -> {joins(:flags).distinct}
+  scope :moderators, -> {joins(:site_moderators).distinct}
+
   def get_cred
     total_pts = 0
     positive_pts = 0
@@ -32,6 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def prepare_password
+    return if password.nil?
     self.password_digest = Digest::SHA1.hexdigest(self.password)
   end
 

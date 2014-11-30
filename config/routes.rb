@@ -17,10 +17,13 @@ Canvas::Application.routes.draw do
 
   get 'flags' => 'flag#get_flags'
 
+  get  'comments' => 'comment#index'
   post 'comment' => 'comment#create_comment'
   post '/comment/:id/downvote' => 'comment#downvote_comment'
   post '/comment/:id/upvote'   => 'comment#upvote_comment'
   post '/comment/:id/flag'     => 'comment#flag_comment'
+
+  
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

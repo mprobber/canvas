@@ -83,4 +83,7 @@ class CommentController < ApplicationController
       render json: {"error" => "incorrect parameters"}, status: 400
     end
   end
+
+  def index
+  end
 end
