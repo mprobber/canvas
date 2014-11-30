@@ -26,9 +26,11 @@ class CommentController < ApplicationController
     user_t = UserToken.find_by_token(params[:user_token])
     site = Site.find_by_token(params[:site_token])
     comment = Comment.find_by_id(params[:id])
-
     unless user_t.nil? or site.nil? or comment.nil?
-      return if (comment.user_token == user_t or (not user_t.user.nil? and comment.user_token.user == user_t.user))
+      if (comment.user_token == user_t or (not user_t.user.nil? and comment.user_token.user == user_t.user))
+        render json: comment.generate_cred
+        return
+      end
       v = Vote.new
       v.points = user_t.user_cred
       v.user_token = user_t
@@ -49,7 +51,10 @@ class CommentController < ApplicationController
     comment = Comment.find_by_id(params[:id])
 
     unless user_t.nil? or site.nil? or comment.nil?
-      return if (comment.user_token == user_t or (not user_t.user.nil? and comment.user_token.user == user_t.user))
+      if (comment.user_token == user_t or (not user_t.user.nil? and comment.user_token.user == user_t.user))
+        render json: comment.generate_cred
+        return
+      end
       v = Vote.new
       v.points = 0-user_t.user_cred
       v.user_token = user_t

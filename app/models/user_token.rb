@@ -9,7 +9,7 @@ class UserToken < ActiveRecord::Base
 
   scope :banned, -> {where(banned: true) }
   scope :needs_attention, -> {joins(:flags).distinct}
-  scope :none, where(:id => nil).where("id IS NOT ?", nil)
+  scope :none, -> {where(:id => nil).where("id IS NOT ?", nil)}
 
   def user_cred
     if self.user
