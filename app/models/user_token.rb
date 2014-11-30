@@ -23,9 +23,33 @@ class UserToken < ActiveRecord::Base
         total_pts += vote.points.abs
       end
     end
-    
-    (total_pts / positive_pts) * (1/(self.comment_flags.distinct.count(:comment_id) + 1))
+    if (total_pts > 0)
+      (positive_pts / total_pts) * (1.0 / (self.comment_flags.distinct.count(:comment_id) + 1.0))
+    else
+      (1.0 / 2.0) * (1.0 / (self.comment_flags.distinct.count(:comment_id) + 1.0))
+    end
   end
+
+  def get_upvotes
+    positive_pts = 0
+    self.comments.each do |comment|
+      comment.votes.each do |vote|
+        positive_pts += vote.points if (vote.points > 0)
+      end
+    end
+    positive_pts
+  end
+
+  def get_downvotes
+    negative_pts = 0
+    self.comments.each do |comment|
+      comment.votes.each do |vote|
+        negative_pts += vote.points if (vote.points < 0)
+      end
+    end
+    negative_pts.abs
+  end
+
 
   private
   def generate_token
