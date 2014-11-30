@@ -1,6 +1,7 @@
 require 'ipaddr'
 
 class CommentController < ApplicationController
+  layout nil
   def create_comment
     user_t = UserToken.find_by_token(params[:user_token])
     site = Site.find_by_token(params[:site_token])
@@ -26,7 +27,7 @@ class CommentController < ApplicationController
       v.save
       render json: comment.generate_cred
     else
-      render 400
+      render json: {"error" => "incorrect parameters"}, status: 400
     end
   end
 
@@ -43,7 +44,7 @@ class CommentController < ApplicationController
       v.save
       render json: comment.generate_cred
     else
-      render 400
+      render json: {"error" => "incorrect parameters"}, status: 400
     end
   end
 
@@ -62,7 +63,7 @@ class CommentController < ApplicationController
       f.save
       render json: comment.generate_cred
     else
-      render 400
+      render json: {"error" => "incorrect parameters"}, status: 400
     end
   end
 end

@@ -10,6 +10,8 @@ Canvas::Application.routes.draw do
 
   get 'user/token' => 'user#create_token'
 
+  post 'user/verify_user' => 'user#verify_user'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
