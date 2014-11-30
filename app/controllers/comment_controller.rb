@@ -28,6 +28,7 @@ class CommentController < ApplicationController
     comment = Comment.find_by_id(params[:id])
 
     unless user_t.nil? or site.nil? or comment.nil?
+      return if (comment.user_token == user_t or (not user_t.user.nil? and comment.user_token.user == user_t.user))
       v = Vote.new
       v.points = user_t.user_cred
       v.user_token = user_t
@@ -48,6 +49,7 @@ class CommentController < ApplicationController
     comment = Comment.find_by_id(params[:id])
 
     unless user_t.nil? or site.nil? or comment.nil?
+      return if (comment.user_token == user_t or (not user_t.user.nil? and comment.user_token.user == user_t.user))
       v = Vote.new
       v.points = 0-user_t.user_cred
       v.user_token = user_t
