@@ -25,6 +25,7 @@ class UserController < ApplicationController
         if old_user_token.user.nil?
           old_user_token.user = User.new
           old_user_token.user.display_name = params[:display_name]
+          old_user_token.avatar_url = params[:avatar_url]
           old_user_token.save
         end
         account.user = old_user_token.user

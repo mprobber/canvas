@@ -20,7 +20,11 @@
       <% @registered_users.each do |user| %>
       <div class="row ">
         <div class="large-2 columns">
-          <%= image_tag "grey-silhouette-of-man.svg", class: "thumbnail" %>
+          <% if user.avatar_url.nil? %>
+            <%= image_tag "grey-silhouette-of-man.svg", class: "thumbnail" %>
+          <% else %>
+            <img src="<%= user.avatar_url %>" class="thumbnail">
+          <% end %>
         </div>
         <div class="large-10 columns">
           <div class="row">
