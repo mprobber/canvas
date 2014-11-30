@@ -1,0 +1,28 @@
+<html>
+<head>
+  <title>Token</title>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script>
+    window.addEventListener("message", function(event) {
+      // TODO: Check the origin to make sure it's approved.
+      if (event.data != "GET TOKEN") {
+        return;
+      }
+
+      if (window.localStorage['token']) {
+        event.source.postMessage(window.localStorage['token'], "*");
+      } else {
+        $.ajax({
+          dataType: "json",
+          url: "/user/token",
+          success: function(data) {
+            window.localStorage['token'] = data.user_token;
+            event.source.postMessage(window.localStorage['token'], "*");
+          }
+        });
+      }
+    }, false);
+  </script>
+</head>
+<body></body>
+</html>
